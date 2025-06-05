@@ -1,0 +1,1959 @@
+{
+  "id": "00000000-0000-0000-0000-000000000000",
+  "prevId": "",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.Message": {
+      "name": "Message",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "content": {
+          "name": "content",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "senderId": {
+          "name": "senderId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "recipientId": {
+          "name": "recipientId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "sentAt": {
+          "name": "sentAt",
+          "type": "timestamp(3)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "CURRENT_TIMESTAMP"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "Message_senderId_fkey": {
+          "name": "Message_senderId_fkey",
+          "tableFrom": "Message",
+          "tableTo": "User",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "senderId"
+          ],
+          "columnsTo": [
+            "clerkId"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "cascade"
+        },
+        "Message_recipientId_fkey": {
+          "name": "Message_recipientId_fkey",
+          "tableFrom": "Message",
+          "tableTo": "User",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "recipientId"
+          ],
+          "columnsTo": [
+            "clerkId"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false
+    },
+    "public._prisma_migrations": {
+      "name": "_prisma_migrations",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(36)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "checksum": {
+          "name": "checksum",
+          "type": "varchar(64)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "finished_at": {
+          "name": "finished_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "migration_name": {
+          "name": "migration_name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "logs": {
+          "name": "logs",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "rolled_back_at": {
+          "name": "rolled_back_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "started_at": {
+          "name": "started_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "applied_steps_count": {
+          "name": "applied_steps_count",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false
+    },
+    "public.Post": {
+      "name": "Post",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "userId": {
+          "name": "userId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "players": {
+          "name": "players",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "startingLevel": {
+          "name": "startingLevel",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "finishingLevel": {
+          "name": "finishingLevel",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "title": {
+          "name": "title",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "author": {
+          "name": "author",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "mainImage": {
+          "name": "mainImage",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "body": {
+          "name": "body",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp(3)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp(3)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "campaignId": {
+          "name": "campaignId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {
+        "Post_campaignId_key": {
+          "name": "Post_campaignId_key",
+          "columns": [
+            {
+              "expression": "campaignId",
+              "asc": true,
+              "nulls": "last",
+              "opclass": "text_ops",
+              "isExpression": false
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "Post_userId_fkey": {
+          "name": "Post_userId_fkey",
+          "tableFrom": "Post",
+          "tableTo": "User",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "userId"
+          ],
+          "columnsTo": [
+            "clerkId"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "cascade"
+        },
+        "Post_campaignId_fkey": {
+          "name": "Post_campaignId_fkey",
+          "tableFrom": "Post",
+          "tableTo": "Campaign",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "campaignId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false
+    },
+    "public.Campaign": {
+      "name": "Campaign",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "image": {
+          "name": "image",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "password": {
+          "name": "password",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "dmUserId": {
+          "name": "dmUserId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "dmName": {
+          "name": "dmName",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "dmProfileImg": {
+          "name": "dmProfileImg",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp(3)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp(3)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "Campaign_dmUserId_fkey": {
+          "name": "Campaign_dmUserId_fkey",
+          "tableFrom": "Campaign",
+          "tableTo": "User",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "dmUserId"
+          ],
+          "columnsTo": [
+            "clerkId"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false
+    },
+    "public.Like": {
+      "name": "Like",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "postId": {
+          "name": "postId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "userId": {
+          "name": "userId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp(3)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "CURRENT_TIMESTAMP"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "Like_postId_fkey": {
+          "name": "Like_postId_fkey",
+          "tableFrom": "Like",
+          "tableTo": "Post",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "postId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "cascade"
+        },
+        "Like_userId_fkey": {
+          "name": "Like_userId_fkey",
+          "tableFrom": "Like",
+          "tableTo": "User",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "userId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false
+    },
+    "public.Comment": {
+      "name": "Comment",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "content": {
+          "name": "content",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "postId": {
+          "name": "postId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "userId": {
+          "name": "userId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp(3)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "CURRENT_TIMESTAMP"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "Comment_postId_fkey": {
+          "name": "Comment_postId_fkey",
+          "tableFrom": "Comment",
+          "tableTo": "Post",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "postId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "cascade"
+        },
+        "Comment_userId_fkey": {
+          "name": "Comment_userId_fkey",
+          "tableFrom": "Comment",
+          "tableTo": "User",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "userId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false
+    },
+    "public.CampaignChat": {
+      "name": "CampaignChat",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "campaignId": {
+          "name": "campaignId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "username": {
+          "name": "username",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "chat": {
+          "name": "chat",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp(3)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "CURRENT_TIMESTAMP"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "CampaignChat_campaignId_fkey": {
+          "name": "CampaignChat_campaignId_fkey",
+          "tableFrom": "CampaignChat",
+          "tableTo": "Campaign",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "campaignId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false
+    },
+    "public.CampaignSchedules": {
+      "name": "CampaignSchedules",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "campaignId": {
+          "name": "campaignId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "time": {
+          "name": "time",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "date": {
+          "name": "date",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "scheduledEvent": {
+          "name": "scheduledEvent",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "CampaignSchedules_campaignId_fkey": {
+          "name": "CampaignSchedules_campaignId_fkey",
+          "tableFrom": "CampaignSchedules",
+          "tableTo": "Campaign",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "campaignId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false
+    },
+    "public.CampaignNote": {
+      "name": "CampaignNote",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "campaignId": {
+          "name": "campaignId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "userId": {
+          "name": "userId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "private": {
+          "name": "private",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "title": {
+          "name": "title",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "content": {
+          "name": "content",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp(3)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp(3)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "CampaignNote_campaignId_fkey": {
+          "name": "CampaignNote_campaignId_fkey",
+          "tableFrom": "CampaignNote",
+          "tableTo": "Campaign",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "campaignId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false
+    },
+    "public.User": {
+      "name": "User",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "clerkId": {
+          "name": "clerkId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "username": {
+          "name": "username",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "imgUrl": {
+          "name": "imgUrl",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "email": {
+          "name": "email",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp(3)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp(3)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {
+        "User_email_key": {
+          "name": "User_email_key",
+          "columns": [
+            {
+              "expression": "email",
+              "asc": true,
+              "nulls": "last",
+              "opclass": "text_ops",
+              "isExpression": false
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "User_username_key": {
+          "name": "User_username_key",
+          "columns": [
+            {
+              "expression": "username",
+              "asc": true,
+              "nulls": "last",
+              "opclass": "text_ops",
+              "isExpression": false
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false
+    },
+    "public.Friendship": {
+      "name": "Friendship",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "senderId": {
+          "name": "senderId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "senderName": {
+          "name": "senderName",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "receiverId": {
+          "name": "receiverId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "receiverName": {
+          "name": "receiverName",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "senderImgUrl": {
+          "name": "senderImgUrl",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "receiverImgUrl": {
+          "name": "receiverImgUrl",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "status": {
+          "name": "status",
+          "type": "FriendshipStatus",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'PENDING'"
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp(3)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp(3)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "Friendship_senderId_fkey": {
+          "name": "Friendship_senderId_fkey",
+          "tableFrom": "Friendship",
+          "tableTo": "User",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "senderId"
+          ],
+          "columnsTo": [
+            "clerkId"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "cascade"
+        },
+        "Friendship_receiverId_fkey": {
+          "name": "Friendship_receiverId_fkey",
+          "tableFrom": "Friendship",
+          "tableTo": "User",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "receiverId"
+          ],
+          "columnsTo": [
+            "clerkId"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false
+    },
+    "public.Character": {
+      "name": "Character",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "charname": {
+          "name": "charname",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "classname": {
+          "name": "classname",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "background": {
+          "name": "background",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "playername": {
+          "name": "playername",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "race": {
+          "name": "race",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "alignment": {
+          "name": "alignment",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "level": {
+          "name": "level",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "strengthscore": {
+          "name": "strengthscore",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "dexterityscore": {
+          "name": "dexterityscore",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "constitutionscore": {
+          "name": "constitutionscore",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "wisdomscore": {
+          "name": "wisdomscore",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "intelligencescore": {
+          "name": "intelligencescore",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "charismascore": {
+          "name": "charismascore",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "inspiration": {
+          "name": "inspiration",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "proficiencybonus": {
+          "name": "proficiencybonus",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "strengthsave": {
+          "name": "strengthsave",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "strengthsaveprof": {
+          "name": "strengthsaveprof",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "dexteritysave": {
+          "name": "dexteritysave",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "dexteritysaveprof": {
+          "name": "dexteritysaveprof",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "constitutionsave": {
+          "name": "constitutionsave",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "constitutionsaveprof": {
+          "name": "constitutionsaveprof",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "wisdomsave": {
+          "name": "wisdomsave",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "wisdomsaveprof": {
+          "name": "wisdomsaveprof",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "intelligencesave": {
+          "name": "intelligencesave",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "intelligencesaveprof": {
+          "name": "intelligencesaveprof",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "charismasave": {
+          "name": "charismasave",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "charismasaveprof": {
+          "name": "charismasaveprof",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "acrobatics": {
+          "name": "acrobatics",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "acrobaticsexpertise": {
+          "name": "acrobaticsexpertise",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "acrobaticsprof": {
+          "name": "acrobaticsprof",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "animalhandling": {
+          "name": "animalhandling",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "animalhandlingexpertise": {
+          "name": "animalhandlingexpertise",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "animalhandlingprof": {
+          "name": "animalhandlingprof",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "arcana": {
+          "name": "arcana",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "arcanaexpertise": {
+          "name": "arcanaexpertise",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "arcanaprof": {
+          "name": "arcanaprof",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "athletics": {
+          "name": "athletics",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "athleticsexpertise": {
+          "name": "athleticsexpertise",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "athleticsprof": {
+          "name": "athleticsprof",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "deception": {
+          "name": "deception",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "deceptionexpertise": {
+          "name": "deceptionexpertise",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "deceptionprof": {
+          "name": "deceptionprof",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "history": {
+          "name": "history",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "historyexpertise": {
+          "name": "historyexpertise",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "historyprof": {
+          "name": "historyprof",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "insight": {
+          "name": "insight",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "insightexpertise": {
+          "name": "insightexpertise",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "insightprof": {
+          "name": "insightprof",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "intimidation": {
+          "name": "intimidation",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "intimidationexpertise": {
+          "name": "intimidationexpertise",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "intimidationprof": {
+          "name": "intimidationprof",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "investigation": {
+          "name": "investigation",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "investigationexpertise": {
+          "name": "investigationexpertise",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "investigationprof": {
+          "name": "investigationprof",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "medicine": {
+          "name": "medicine",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "medicineexpertise": {
+          "name": "medicineexpertise",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "medicineprof": {
+          "name": "medicineprof",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "nature": {
+          "name": "nature",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "natureexpertise": {
+          "name": "natureexpertise",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "natureprof": {
+          "name": "natureprof",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "perception": {
+          "name": "perception",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "perceptionexpertise": {
+          "name": "perceptionexpertise",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "perceptionprof": {
+          "name": "perceptionprof",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "performance": {
+          "name": "performance",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "performanceexpertise": {
+          "name": "performanceexpertise",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "performanceprof": {
+          "name": "performanceprof",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "persuasion": {
+          "name": "persuasion",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "persuasionexpertise": {
+          "name": "persuasionexpertise",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "persuasionprof": {
+          "name": "persuasionprof",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "religion": {
+          "name": "religion",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "religionexpertise": {
+          "name": "religionexpertise",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "religionprof": {
+          "name": "religionprof",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "sleightofhand": {
+          "name": "sleightofhand",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "sleightofhandexpertise": {
+          "name": "sleightofhandexpertise",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "sleightofhandprof": {
+          "name": "sleightofhandprof",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "stealth": {
+          "name": "stealth",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "stealthexpertise": {
+          "name": "stealthexpertise",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "stealthprof": {
+          "name": "stealthprof",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "survival": {
+          "name": "survival",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "survivalexpertise": {
+          "name": "survivalexpertise",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "survivalprof": {
+          "name": "survivalprof",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "passiveperception": {
+          "name": "passiveperception",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "otherprofs": {
+          "name": "otherprofs",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ac": {
+          "name": "ac",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "initiative": {
+          "name": "initiative",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "speed": {
+          "name": "speed",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "maxhp": {
+          "name": "maxhp",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "currenthp": {
+          "name": "currenthp",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "temphp": {
+          "name": "temphp",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "totalhd": {
+          "name": "totalhd",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "remaininghd": {
+          "name": "remaininghd",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "deathsuccess1": {
+          "name": "deathsuccess1",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "deathsuccess2": {
+          "name": "deathsuccess2",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "deathsuccess3": {
+          "name": "deathsuccess3",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "deathfail1": {
+          "name": "deathfail1",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "deathfail2": {
+          "name": "deathfail2",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "deathfail3": {
+          "name": "deathfail3",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "atkname1": {
+          "name": "atkname1",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "atkbonus1": {
+          "name": "atkbonus1",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "atkdamage1": {
+          "name": "atkdamage1",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "atkname2": {
+          "name": "atkname2",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "atkbonus2": {
+          "name": "atkbonus2",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "atkdamage2": {
+          "name": "atkdamage2",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "atkname3": {
+          "name": "atkname3",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "atkbonus3": {
+          "name": "atkbonus3",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "atkdamage3": {
+          "name": "atkdamage3",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "cp": {
+          "name": "cp",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "sp": {
+          "name": "sp",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ep": {
+          "name": "ep",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "gp": {
+          "name": "gp",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "pp": {
+          "name": "pp",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "equipmentlist": {
+          "name": "equipmentlist",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "personality": {
+          "name": "personality",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ideals": {
+          "name": "ideals",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "bonds": {
+          "name": "bonds",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "flaws": {
+          "name": "flaws",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "features": {
+          "name": "features",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "userId": {
+          "name": "userId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp(3)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp(3)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "Character_userId_fkey": {
+          "name": "Character_userId_fkey",
+          "tableFrom": "Character",
+          "tableTo": "User",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "userId"
+          ],
+          "columnsTo": [
+            "clerkId"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false
+    },
+    "public._CampaignPlayers": {
+      "name": "_CampaignPlayers",
+      "schema": "",
+      "columns": {
+        "A": {
+          "name": "A",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "B": {
+          "name": "B",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {
+        "_CampaignPlayers_AB_unique": {
+          "name": "_CampaignPlayers_AB_unique",
+          "columns": [
+            {
+              "expression": "A",
+              "asc": true,
+              "nulls": "last",
+              "opclass": "text_ops",
+              "isExpression": false
+            },
+            {
+              "expression": "B",
+              "asc": true,
+              "nulls": "last",
+              "opclass": "text_ops",
+              "isExpression": false
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "_CampaignPlayers_B_index": {
+          "name": "_CampaignPlayers_B_index",
+          "columns": [
+            {
+              "expression": "B",
+              "asc": true,
+              "nulls": "last",
+              "opclass": "text_ops",
+              "isExpression": false
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "_CampaignPlayers_A_fkey": {
+          "name": "_CampaignPlayers_A_fkey",
+          "tableFrom": "_CampaignPlayers",
+          "tableTo": "Campaign",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "A"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        },
+        "_CampaignPlayers_B_fkey": {
+          "name": "_CampaignPlayers_B_fkey",
+          "tableFrom": "_CampaignPlayers",
+          "tableTo": "User",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "B"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false
+    },
+    "public._RequestingInvite": {
+      "name": "_RequestingInvite",
+      "schema": "",
+      "columns": {
+        "A": {
+          "name": "A",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "B": {
+          "name": "B",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {
+        "_RequestingInvite_AB_unique": {
+          "name": "_RequestingInvite_AB_unique",
+          "columns": [
+            {
+              "expression": "A",
+              "asc": true,
+              "nulls": "last",
+              "opclass": "text_ops",
+              "isExpression": false
+            },
+            {
+              "expression": "B",
+              "asc": true,
+              "nulls": "last",
+              "opclass": "text_ops",
+              "isExpression": false
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "_RequestingInvite_B_index": {
+          "name": "_RequestingInvite_B_index",
+          "columns": [
+            {
+              "expression": "B",
+              "asc": true,
+              "nulls": "last",
+              "opclass": "text_ops",
+              "isExpression": false
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "_RequestingInvite_A_fkey": {
+          "name": "_RequestingInvite_A_fkey",
+          "tableFrom": "_RequestingInvite",
+          "tableTo": "Campaign",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "A"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        },
+        "_RequestingInvite_B_fkey": {
+          "name": "_RequestingInvite_B_fkey",
+          "tableFrom": "_RequestingInvite",
+          "tableTo": "User",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "B"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false
+    },
+    "public._InvitedGame": {
+      "name": "_InvitedGame",
+      "schema": "",
+      "columns": {
+        "A": {
+          "name": "A",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "B": {
+          "name": "B",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {
+        "_InvitedGame_AB_unique": {
+          "name": "_InvitedGame_AB_unique",
+          "columns": [
+            {
+              "expression": "A",
+              "asc": true,
+              "nulls": "last",
+              "opclass": "text_ops",
+              "isExpression": false
+            },
+            {
+              "expression": "B",
+              "asc": true,
+              "nulls": "last",
+              "opclass": "text_ops",
+              "isExpression": false
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "_InvitedGame_B_index": {
+          "name": "_InvitedGame_B_index",
+          "columns": [
+            {
+              "expression": "B",
+              "asc": true,
+              "nulls": "last",
+              "opclass": "text_ops",
+              "isExpression": false
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "_InvitedGame_A_fkey": {
+          "name": "_InvitedGame_A_fkey",
+          "tableFrom": "_InvitedGame",
+          "tableTo": "Campaign",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "A"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        },
+        "_InvitedGame_B_fkey": {
+          "name": "_InvitedGame_B_fkey",
+          "tableFrom": "_InvitedGame",
+          "tableTo": "User",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "B"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false
+    }
+  },
+  "enums": {
+    "public.FriendshipStatus": {
+      "name": "FriendshipStatus",
+      "values": [
+        "PENDING",
+        "ACCEPTED"
+      ],
+      "schema": "public"
+    }
+  },
+  "schemas": {},
+  "sequences": {},
+  "roles": {},
+  "policies": {},
+  "views": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  },
+  "internal": {
+    "tables": {}
+  }
+}
