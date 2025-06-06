@@ -4,626 +4,6 @@
   "version": "7",
   "dialect": "postgresql",
   "tables": {
-    "public.Message": {
-      "name": "Message",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "text",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "content": {
-          "name": "content",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "senderId": {
-          "name": "senderId",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "recipientId": {
-          "name": "recipientId",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "sentAt": {
-          "name": "sentAt",
-          "type": "timestamp(3)",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "CURRENT_TIMESTAMP"
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {
-        "Message_senderId_fkey": {
-          "name": "Message_senderId_fkey",
-          "tableFrom": "Message",
-          "tableTo": "User",
-          "schemaTo": "public",
-          "columnsFrom": [
-            "senderId"
-          ],
-          "columnsTo": [
-            "clerkId"
-          ],
-          "onDelete": "restrict",
-          "onUpdate": "cascade"
-        },
-        "Message_recipientId_fkey": {
-          "name": "Message_recipientId_fkey",
-          "tableFrom": "Message",
-          "tableTo": "User",
-          "schemaTo": "public",
-          "columnsFrom": [
-            "recipientId"
-          ],
-          "columnsTo": [
-            "clerkId"
-          ],
-          "onDelete": "restrict",
-          "onUpdate": "cascade"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "checkConstraints": {},
-      "policies": {},
-      "isRLSEnabled": false
-    },
-    "public._prisma_migrations": {
-      "name": "_prisma_migrations",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "varchar(36)",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "checksum": {
-          "name": "checksum",
-          "type": "varchar(64)",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "finished_at": {
-          "name": "finished_at",
-          "type": "timestamp with time zone",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "migration_name": {
-          "name": "migration_name",
-          "type": "varchar(255)",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "logs": {
-          "name": "logs",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "rolled_back_at": {
-          "name": "rolled_back_at",
-          "type": "timestamp with time zone",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "started_at": {
-          "name": "started_at",
-          "type": "timestamp with time zone",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        },
-        "applied_steps_count": {
-          "name": "applied_steps_count",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true,
-          "default": 0
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {},
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "checkConstraints": {},
-      "policies": {},
-      "isRLSEnabled": false
-    },
-    "public.Post": {
-      "name": "Post",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "text",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "userId": {
-          "name": "userId",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "players": {
-          "name": "players",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "startingLevel": {
-          "name": "startingLevel",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "finishingLevel": {
-          "name": "finishingLevel",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "title": {
-          "name": "title",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "description": {
-          "name": "description",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "author": {
-          "name": "author",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "mainImage": {
-          "name": "mainImage",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "body": {
-          "name": "body",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "createdAt": {
-          "name": "createdAt",
-          "type": "timestamp(3)",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "CURRENT_TIMESTAMP"
-        },
-        "updatedAt": {
-          "name": "updatedAt",
-          "type": "timestamp(3)",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "campaignId": {
-          "name": "campaignId",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        }
-      },
-      "indexes": {
-        "Post_campaignId_key": {
-          "name": "Post_campaignId_key",
-          "columns": [
-            {
-              "expression": "campaignId",
-              "asc": true,
-              "nulls": "last",
-              "opclass": "text_ops",
-              "isExpression": false
-            }
-          ],
-          "isUnique": true,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        }
-      },
-      "foreignKeys": {
-        "Post_userId_fkey": {
-          "name": "Post_userId_fkey",
-          "tableFrom": "Post",
-          "tableTo": "User",
-          "schemaTo": "public",
-          "columnsFrom": [
-            "userId"
-          ],
-          "columnsTo": [
-            "clerkId"
-          ],
-          "onDelete": "restrict",
-          "onUpdate": "cascade"
-        },
-        "Post_campaignId_fkey": {
-          "name": "Post_campaignId_fkey",
-          "tableFrom": "Post",
-          "tableTo": "Campaign",
-          "schemaTo": "public",
-          "columnsFrom": [
-            "campaignId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "restrict",
-          "onUpdate": "cascade"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "checkConstraints": {},
-      "policies": {},
-      "isRLSEnabled": false
-    },
-    "public.Campaign": {
-      "name": "Campaign",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "text",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "name": {
-          "name": "name",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "description": {
-          "name": "description",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "image": {
-          "name": "image",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "password": {
-          "name": "password",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "dmUserId": {
-          "name": "dmUserId",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "dmName": {
-          "name": "dmName",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "dmProfileImg": {
-          "name": "dmProfileImg",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "createdAt": {
-          "name": "createdAt",
-          "type": "timestamp(3)",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "CURRENT_TIMESTAMP"
-        },
-        "updatedAt": {
-          "name": "updatedAt",
-          "type": "timestamp(3)",
-          "primaryKey": false,
-          "notNull": true
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {
-        "Campaign_dmUserId_fkey": {
-          "name": "Campaign_dmUserId_fkey",
-          "tableFrom": "Campaign",
-          "tableTo": "User",
-          "schemaTo": "public",
-          "columnsFrom": [
-            "dmUserId"
-          ],
-          "columnsTo": [
-            "clerkId"
-          ],
-          "onDelete": "restrict",
-          "onUpdate": "cascade"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "checkConstraints": {},
-      "policies": {},
-      "isRLSEnabled": false
-    },
-    "public.Like": {
-      "name": "Like",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "text",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "postId": {
-          "name": "postId",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "userId": {
-          "name": "userId",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "createdAt": {
-          "name": "createdAt",
-          "type": "timestamp(3)",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "CURRENT_TIMESTAMP"
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {
-        "Like_postId_fkey": {
-          "name": "Like_postId_fkey",
-          "tableFrom": "Like",
-          "tableTo": "Post",
-          "schemaTo": "public",
-          "columnsFrom": [
-            "postId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "restrict",
-          "onUpdate": "cascade"
-        },
-        "Like_userId_fkey": {
-          "name": "Like_userId_fkey",
-          "tableFrom": "Like",
-          "tableTo": "User",
-          "schemaTo": "public",
-          "columnsFrom": [
-            "userId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "restrict",
-          "onUpdate": "cascade"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "checkConstraints": {},
-      "policies": {},
-      "isRLSEnabled": false
-    },
-    "public.Comment": {
-      "name": "Comment",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "text",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "content": {
-          "name": "content",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "postId": {
-          "name": "postId",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "userId": {
-          "name": "userId",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "createdAt": {
-          "name": "createdAt",
-          "type": "timestamp(3)",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "CURRENT_TIMESTAMP"
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {
-        "Comment_postId_fkey": {
-          "name": "Comment_postId_fkey",
-          "tableFrom": "Comment",
-          "tableTo": "Post",
-          "schemaTo": "public",
-          "columnsFrom": [
-            "postId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "restrict",
-          "onUpdate": "cascade"
-        },
-        "Comment_userId_fkey": {
-          "name": "Comment_userId_fkey",
-          "tableFrom": "Comment",
-          "tableTo": "User",
-          "schemaTo": "public",
-          "columnsFrom": [
-            "userId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "restrict",
-          "onUpdate": "cascade"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "checkConstraints": {},
-      "policies": {},
-      "isRLSEnabled": false
-    },
-    "public.CampaignChat": {
-      "name": "CampaignChat",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "text",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "campaignId": {
-          "name": "campaignId",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "username": {
-          "name": "username",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "chat": {
-          "name": "chat",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "createdAt": {
-          "name": "createdAt",
-          "type": "timestamp(3)",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "CURRENT_TIMESTAMP"
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {
-        "CampaignChat_campaignId_fkey": {
-          "name": "CampaignChat_campaignId_fkey",
-          "tableFrom": "CampaignChat",
-          "tableTo": "Campaign",
-          "schemaTo": "public",
-          "columnsFrom": [
-            "campaignId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "restrict",
-          "onUpdate": "cascade"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "checkConstraints": {},
-      "policies": {},
-      "isRLSEnabled": false
-    },
-    "public.CampaignSchedules": {
-      "name": "CampaignSchedules",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "text",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "campaignId": {
-          "name": "campaignId",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "time": {
-          "name": "time",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "date": {
-          "name": "date",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "scheduledEvent": {
-          "name": "scheduledEvent",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {
-        "CampaignSchedules_campaignId_fkey": {
-          "name": "CampaignSchedules_campaignId_fkey",
-          "tableFrom": "CampaignSchedules",
-          "tableTo": "Campaign",
-          "schemaTo": "public",
-          "columnsFrom": [
-            "campaignId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "restrict",
-          "onUpdate": "cascade"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "checkConstraints": {},
-      "policies": {},
-      "isRLSEnabled": false
-    },
     "public.CampaignNote": {
       "name": "CampaignNote",
       "schema": "",
@@ -683,6 +63,64 @@
         "CampaignNote_campaignId_fkey": {
           "name": "CampaignNote_campaignId_fkey",
           "tableFrom": "CampaignNote",
+          "tableTo": "Campaign",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "campaignId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false
+    },
+    "public.CampaignSchedules": {
+      "name": "CampaignSchedules",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "campaignId": {
+          "name": "campaignId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "time": {
+          "name": "time",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "date": {
+          "name": "date",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "scheduledEvent": {
+          "name": "scheduledEvent",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "CampaignSchedules_campaignId_fkey": {
+          "name": "CampaignSchedules_campaignId_fkey",
+          "tableFrom": "CampaignSchedules",
           "tableTo": "Campaign",
           "schemaTo": "public",
           "columnsFrom": [
@@ -784,111 +222,6 @@
         }
       },
       "foreignKeys": {},
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "checkConstraints": {},
-      "policies": {},
-      "isRLSEnabled": false
-    },
-    "public.Friendship": {
-      "name": "Friendship",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "text",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "senderId": {
-          "name": "senderId",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "senderName": {
-          "name": "senderName",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "receiverId": {
-          "name": "receiverId",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "receiverName": {
-          "name": "receiverName",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "senderImgUrl": {
-          "name": "senderImgUrl",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "receiverImgUrl": {
-          "name": "receiverImgUrl",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "status": {
-          "name": "status",
-          "type": "FriendshipStatus",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "'PENDING'"
-        },
-        "createdAt": {
-          "name": "createdAt",
-          "type": "timestamp(3)",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "CURRENT_TIMESTAMP"
-        },
-        "updatedAt": {
-          "name": "updatedAt",
-          "type": "timestamp(3)",
-          "primaryKey": false,
-          "notNull": true
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {
-        "Friendship_senderId_fkey": {
-          "name": "Friendship_senderId_fkey",
-          "tableFrom": "Friendship",
-          "tableTo": "User",
-          "schemaTo": "public",
-          "columnsFrom": [
-            "senderId"
-          ],
-          "columnsTo": [
-            "clerkId"
-          ],
-          "onDelete": "restrict",
-          "onUpdate": "cascade"
-        },
-        "Friendship_receiverId_fkey": {
-          "name": "Friendship_receiverId_fkey",
-          "tableFrom": "Friendship",
-          "tableTo": "User",
-          "schemaTo": "public",
-          "columnsFrom": [
-            "receiverId"
-          ],
-          "columnsTo": [
-            "clerkId"
-          ],
-          "onDelete": "restrict",
-          "onUpdate": "cascade"
-        }
-      },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
       "checkConstraints": {},
@@ -1650,8 +983,553 @@
       "policies": {},
       "isRLSEnabled": false
     },
-    "public._CampaignPlayers": {
-      "name": "_CampaignPlayers",
+    "public.Post": {
+      "name": "Post",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "userId": {
+          "name": "userId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "players": {
+          "name": "players",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "startingLevel": {
+          "name": "startingLevel",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "finishingLevel": {
+          "name": "finishingLevel",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "title": {
+          "name": "title",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "author": {
+          "name": "author",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "mainImage": {
+          "name": "mainImage",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "body": {
+          "name": "body",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp(3)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp(3)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "campaignId": {
+          "name": "campaignId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {
+        "Post_campaignId_key": {
+          "name": "Post_campaignId_key",
+          "columns": [
+            {
+              "expression": "campaignId",
+              "asc": true,
+              "nulls": "last",
+              "opclass": "text_ops",
+              "isExpression": false
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "Post_campaignId_fkey": {
+          "name": "Post_campaignId_fkey",
+          "tableFrom": "Post",
+          "tableTo": "Campaign",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "campaignId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "cascade"
+        },
+        "Post_userId_fkey": {
+          "name": "Post_userId_fkey",
+          "tableFrom": "Post",
+          "tableTo": "User",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "userId"
+          ],
+          "columnsTo": [
+            "clerkId"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false
+    },
+    "public.Friendship": {
+      "name": "Friendship",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "senderId": {
+          "name": "senderId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "senderName": {
+          "name": "senderName",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "receiverId": {
+          "name": "receiverId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "receiverName": {
+          "name": "receiverName",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "senderImgUrl": {
+          "name": "senderImgUrl",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "receiverImgUrl": {
+          "name": "receiverImgUrl",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "status": {
+          "name": "status",
+          "type": "FriendshipStatus",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'PENDING'"
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp(3)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp(3)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "Friendship_receiverId_fkey": {
+          "name": "Friendship_receiverId_fkey",
+          "tableFrom": "Friendship",
+          "tableTo": "User",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "receiverId"
+          ],
+          "columnsTo": [
+            "clerkId"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "cascade"
+        },
+        "Friendship_senderId_fkey": {
+          "name": "Friendship_senderId_fkey",
+          "tableFrom": "Friendship",
+          "tableTo": "User",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "senderId"
+          ],
+          "columnsTo": [
+            "clerkId"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false
+    },
+    "public.Like": {
+      "name": "Like",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "postId": {
+          "name": "postId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "userId": {
+          "name": "userId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp(3)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "CURRENT_TIMESTAMP"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "Like_postId_fkey": {
+          "name": "Like_postId_fkey",
+          "tableFrom": "Like",
+          "tableTo": "Post",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "postId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "cascade"
+        },
+        "Like_userId_fkey": {
+          "name": "Like_userId_fkey",
+          "tableFrom": "Like",
+          "tableTo": "User",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "userId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false
+    },
+    "public.Message": {
+      "name": "Message",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "content": {
+          "name": "content",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "senderId": {
+          "name": "senderId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "recipientId": {
+          "name": "recipientId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "sentAt": {
+          "name": "sentAt",
+          "type": "timestamp(3)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "CURRENT_TIMESTAMP"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "Message_recipientId_fkey": {
+          "name": "Message_recipientId_fkey",
+          "tableFrom": "Message",
+          "tableTo": "User",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "recipientId"
+          ],
+          "columnsTo": [
+            "clerkId"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "cascade"
+        },
+        "Message_senderId_fkey": {
+          "name": "Message_senderId_fkey",
+          "tableFrom": "Message",
+          "tableTo": "User",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "senderId"
+          ],
+          "columnsTo": [
+            "clerkId"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false
+    },
+    "public.Comment": {
+      "name": "Comment",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "content": {
+          "name": "content",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "postId": {
+          "name": "postId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "userId": {
+          "name": "userId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp(3)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "CURRENT_TIMESTAMP"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "Comment_postId_fkey": {
+          "name": "Comment_postId_fkey",
+          "tableFrom": "Comment",
+          "tableTo": "Post",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "postId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "cascade"
+        },
+        "Comment_userId_fkey": {
+          "name": "Comment_userId_fkey",
+          "tableFrom": "Comment",
+          "tableTo": "User",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "userId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false
+    },
+    "public.Campaign": {
+      "name": "Campaign",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "image": {
+          "name": "image",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "password": {
+          "name": "password",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "dmUserId": {
+          "name": "dmUserId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "dmName": {
+          "name": "dmName",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "dmProfileImg": {
+          "name": "dmProfileImg",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp(3)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp(3)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "Campaign_dmUserId_fkey": {
+          "name": "Campaign_dmUserId_fkey",
+          "tableFrom": "Campaign",
+          "tableTo": "User",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "dmUserId"
+          ],
+          "columnsTo": [
+            "clerkId"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false
+    },
+    "public._InvitedGame": {
+      "name": "_InvitedGame",
       "schema": "",
       "columns": {
         "A": {
@@ -1668,8 +1546,8 @@
         }
       },
       "indexes": {
-        "_CampaignPlayers_AB_unique": {
-          "name": "_CampaignPlayers_AB_unique",
+        "_InvitedGame_AB_unique": {
+          "name": "_InvitedGame_AB_unique",
           "columns": [
             {
               "expression": "A",
@@ -1691,8 +1569,8 @@
           "method": "btree",
           "with": {}
         },
-        "_CampaignPlayers_B_index": {
-          "name": "_CampaignPlayers_B_index",
+        "_InvitedGame_B_index": {
+          "name": "_InvitedGame_B_index",
           "columns": [
             {
               "expression": "B",
@@ -1709,9 +1587,9 @@
         }
       },
       "foreignKeys": {
-        "_CampaignPlayers_A_fkey": {
-          "name": "_CampaignPlayers_A_fkey",
-          "tableFrom": "_CampaignPlayers",
+        "_InvitedGame_A_fkey": {
+          "name": "_InvitedGame_A_fkey",
+          "tableFrom": "_InvitedGame",
           "tableTo": "Campaign",
           "schemaTo": "public",
           "columnsFrom": [
@@ -1723,9 +1601,9 @@
           "onDelete": "cascade",
           "onUpdate": "cascade"
         },
-        "_CampaignPlayers_B_fkey": {
-          "name": "_CampaignPlayers_B_fkey",
-          "tableFrom": "_CampaignPlayers",
+        "_InvitedGame_B_fkey": {
+          "name": "_InvitedGame_B_fkey",
+          "tableFrom": "_InvitedGame",
           "tableTo": "User",
           "schemaTo": "public",
           "columnsFrom": [
@@ -1838,8 +1716,130 @@
       "policies": {},
       "isRLSEnabled": false
     },
-    "public._InvitedGame": {
-      "name": "_InvitedGame",
+    "public._prisma_migrations": {
+      "name": "_prisma_migrations",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(36)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "checksum": {
+          "name": "checksum",
+          "type": "varchar(64)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "finished_at": {
+          "name": "finished_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "migration_name": {
+          "name": "migration_name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "logs": {
+          "name": "logs",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "rolled_back_at": {
+          "name": "rolled_back_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "started_at": {
+          "name": "started_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "applied_steps_count": {
+          "name": "applied_steps_count",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false
+    },
+    "public.CampaignChat": {
+      "name": "CampaignChat",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "campaignId": {
+          "name": "campaignId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "username": {
+          "name": "username",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "chat": {
+          "name": "chat",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp(3)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "CURRENT_TIMESTAMP"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "CampaignChat_campaignId_fkey": {
+          "name": "CampaignChat_campaignId_fkey",
+          "tableFrom": "CampaignChat",
+          "tableTo": "Campaign",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "campaignId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false
+    },
+    "public._CampaignPlayers": {
+      "name": "_CampaignPlayers",
       "schema": "",
       "columns": {
         "A": {
@@ -1856,8 +1856,8 @@
         }
       },
       "indexes": {
-        "_InvitedGame_AB_unique": {
-          "name": "_InvitedGame_AB_unique",
+        "_CampaignPlayers_AB_unique": {
+          "name": "_CampaignPlayers_AB_unique",
           "columns": [
             {
               "expression": "A",
@@ -1879,8 +1879,8 @@
           "method": "btree",
           "with": {}
         },
-        "_InvitedGame_B_index": {
-          "name": "_InvitedGame_B_index",
+        "_CampaignPlayers_B_index": {
+          "name": "_CampaignPlayers_B_index",
           "columns": [
             {
               "expression": "B",
@@ -1897,9 +1897,9 @@
         }
       },
       "foreignKeys": {
-        "_InvitedGame_A_fkey": {
-          "name": "_InvitedGame_A_fkey",
-          "tableFrom": "_InvitedGame",
+        "_CampaignPlayers_A_fkey": {
+          "name": "_CampaignPlayers_A_fkey",
+          "tableFrom": "_CampaignPlayers",
           "tableTo": "Campaign",
           "schemaTo": "public",
           "columnsFrom": [
@@ -1911,9 +1911,9 @@
           "onDelete": "cascade",
           "onUpdate": "cascade"
         },
-        "_InvitedGame_B_fkey": {
-          "name": "_InvitedGame_B_fkey",
-          "tableFrom": "_InvitedGame",
+        "_CampaignPlayers_B_fkey": {
+          "name": "_CampaignPlayers_B_fkey",
+          "tableFrom": "_CampaignPlayers",
           "tableTo": "User",
           "schemaTo": "public",
           "columnsFrom": [

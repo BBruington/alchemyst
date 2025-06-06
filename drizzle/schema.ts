@@ -1,150 +1,8 @@
-import { pgTable, foreignKey, text, timestamp, varchar, integer, uniqueIndex, boolean, index, pgEnum } from "drizzle-orm/pg-core"
+import { pgTable, foreignKey, text, boolean, timestamp, uniqueIndex, integer, index, varchar, pgEnum } from "drizzle-orm/pg-core"
 import { sql } from "drizzle-orm"
 
 export const friendshipStatus = pgEnum("FriendshipStatus", ['PENDING', 'ACCEPTED'])
 
-
-export const message = pgTable("Message", {
-	id: text().primaryKey().notNull(),
-	content: text().notNull(),
-	senderId: text().notNull(),
-	recipientId: text().notNull(),
-	sentAt: timestamp({ precision: 3, mode: 'string' }).default(sql`CURRENT_TIMESTAMP`).notNull(),
-}, (table) => [
-	foreignKey({
-			columns: [table.senderId],
-			foreignColumns: [user.clerkId],
-			name: "Message_senderId_fkey"
-		}).onUpdate("cascade").onDelete("restrict"),
-	foreignKey({
-			columns: [table.recipientId],
-			foreignColumns: [user.clerkId],
-			name: "Message_recipientId_fkey"
-		}).onUpdate("cascade").onDelete("restrict"),
-]);
-
-export const prismaMigrations = pgTable("_prisma_migrations", {
-	id: varchar({ length: 36 }).primaryKey().notNull(),
-	checksum: varchar({ length: 64 }).notNull(),
-	finishedAt: timestamp("finished_at", { withTimezone: true, mode: 'string' }),
-	migrationName: varchar("migration_name", { length: 255 }).notNull(),
-	logs: text(),
-	rolledBackAt: timestamp("rolled_back_at", { withTimezone: true, mode: 'string' }),
-	startedAt: timestamp("started_at", { withTimezone: true, mode: 'string' }).defaultNow().notNull(),
-	appliedStepsCount: integer("applied_steps_count").default(0).notNull(),
-});
-
-export const post = pgTable("Post", {
-	id: text().primaryKey().notNull(),
-	userId: text().notNull(),
-	players: integer(),
-	startingLevel: integer(),
-	finishingLevel: integer(),
-	title: text().notNull(),
-	description: text().notNull(),
-	author: text().notNull(),
-	mainImage: text().notNull(),
-	body: text().notNull(),
-	createdAt: timestamp({ precision: 3, mode: 'string' }).default(sql`CURRENT_TIMESTAMP`).notNull(),
-	updatedAt: timestamp({ precision: 3, mode: 'string' }).notNull(),
-	campaignId: text().notNull(),
-}, (table) => [
-	uniqueIndex("Post_campaignId_key").using("btree", table.campaignId.asc().nullsLast().op("text_ops")),
-	foreignKey({
-			columns: [table.userId],
-			foreignColumns: [user.clerkId],
-			name: "Post_userId_fkey"
-		}).onUpdate("cascade").onDelete("restrict"),
-	foreignKey({
-			columns: [table.campaignId],
-			foreignColumns: [campaign.id],
-			name: "Post_campaignId_fkey"
-		}).onUpdate("cascade").onDelete("restrict"),
-]);
-
-export const campaign = pgTable("Campaign", {
-	id: text().primaryKey().notNull(),
-	name: text().notNull(),
-	description: text().notNull(),
-	image: text(),
-	password: text(),
-	dmUserId: text().notNull(),
-	dmName: text(),
-	dmProfileImg: text(),
-	createdAt: timestamp({ precision: 3, mode: 'string' }).default(sql`CURRENT_TIMESTAMP`).notNull(),
-	updatedAt: timestamp({ precision: 3, mode: 'string' }).notNull(),
-}, (table) => [
-	foreignKey({
-			columns: [table.dmUserId],
-			foreignColumns: [user.clerkId],
-			name: "Campaign_dmUserId_fkey"
-		}).onUpdate("cascade").onDelete("restrict"),
-]);
-
-export const like = pgTable("Like", {
-	id: text().primaryKey().notNull(),
-	postId: text().notNull(),
-	userId: text().notNull(),
-	createdAt: timestamp({ precision: 3, mode: 'string' }).default(sql`CURRENT_TIMESTAMP`).notNull(),
-}, (table) => [
-	foreignKey({
-			columns: [table.postId],
-			foreignColumns: [post.id],
-			name: "Like_postId_fkey"
-		}).onUpdate("cascade").onDelete("restrict"),
-	foreignKey({
-			columns: [table.userId],
-			foreignColumns: [user.id],
-			name: "Like_userId_fkey"
-		}).onUpdate("cascade").onDelete("restrict"),
-]);
-
-export const comment = pgTable("Comment", {
-	id: text().primaryKey().notNull(),
-	content: text().notNull(),
-	postId: text().notNull(),
-	userId: text().notNull(),
-	createdAt: timestamp({ precision: 3, mode: 'string' }).default(sql`CURRENT_TIMESTAMP`).notNull(),
-}, (table) => [
-	foreignKey({
-			columns: [table.postId],
-			foreignColumns: [post.id],
-			name: "Comment_postId_fkey"
-		}).onUpdate("cascade").onDelete("restrict"),
-	foreignKey({
-			columns: [table.userId],
-			foreignColumns: [user.id],
-			name: "Comment_userId_fkey"
-		}).onUpdate("cascade").onDelete("restrict"),
-]);
-
-export const campaignChat = pgTable("CampaignChat", {
-	id: text().primaryKey().notNull(),
-	campaignId: text().notNull(),
-	username: text().notNull(),
-	chat: text().notNull(),
-	createdAt: timestamp({ precision: 3, mode: 'string' }).default(sql`CURRENT_TIMESTAMP`).notNull(),
-}, (table) => [
-	foreignKey({
-			columns: [table.campaignId],
-			foreignColumns: [campaign.id],
-			name: "CampaignChat_campaignId_fkey"
-		}).onUpdate("cascade").onDelete("restrict"),
-]);
-
-export const campaignSchedules = pgTable("CampaignSchedules", {
-	id: text().primaryKey().notNull(),
-	campaignId: text().notNull(),
-	time: text().notNull(),
-	date: text().notNull(),
-	scheduledEvent: text().notNull(),
-}, (table) => [
-	foreignKey({
-			columns: [table.campaignId],
-			foreignColumns: [campaign.id],
-			name: "CampaignSchedules_campaignId_fkey"
-		}).onUpdate("cascade").onDelete("restrict"),
-]);
 
 export const campaignNote = pgTable("CampaignNote", {
 	id: text().primaryKey().notNull(),
@@ -163,6 +21,20 @@ export const campaignNote = pgTable("CampaignNote", {
 		}).onUpdate("cascade").onDelete("restrict"),
 ]);
 
+export const campaignSchedules = pgTable("CampaignSchedules", {
+	id: text().primaryKey().notNull(),
+	campaignId: text().notNull(),
+	time: text().notNull(),
+	date: text().notNull(),
+	scheduledEvent: text().notNull(),
+}, (table) => [
+	foreignKey({
+			columns: [table.campaignId],
+			foreignColumns: [campaign.id],
+			name: "CampaignSchedules_campaignId_fkey"
+		}).onUpdate("cascade").onDelete("restrict"),
+]);
+
 export const user = pgTable("User", {
 	id: text().primaryKey().notNull(),
 	clerkId: text().notNull(),
@@ -174,30 +46,6 @@ export const user = pgTable("User", {
 }, (table) => [
 	uniqueIndex("User_email_key").using("btree", table.email.asc().nullsLast().op("text_ops")),
 	uniqueIndex("User_username_key").using("btree", table.username.asc().nullsLast().op("text_ops")),
-]);
-
-export const friendship = pgTable("Friendship", {
-	id: text().primaryKey().notNull(),
-	senderId: text().notNull(),
-	senderName: text().notNull(),
-	receiverId: text().notNull(),
-	receiverName: text().notNull(),
-	senderImgUrl: text(),
-	receiverImgUrl: text(),
-	status: friendshipStatus().default('PENDING').notNull(),
-	createdAt: timestamp({ precision: 3, mode: 'string' }).default(sql`CURRENT_TIMESTAMP`).notNull(),
-	updatedAt: timestamp({ precision: 3, mode: 'string' }).notNull(),
-}, (table) => [
-	foreignKey({
-			columns: [table.senderId],
-			foreignColumns: [user.clerkId],
-			name: "Friendship_senderId_fkey"
-		}).onUpdate("cascade").onDelete("restrict"),
-	foreignKey({
-			columns: [table.receiverId],
-			foreignColumns: [user.clerkId],
-			name: "Friendship_receiverId_fkey"
-		}).onUpdate("cascade").onDelete("restrict"),
 ]);
 
 export const character = pgTable("Character", {
@@ -330,21 +178,148 @@ export const character = pgTable("Character", {
 		}).onUpdate("cascade").onDelete("restrict"),
 ]);
 
-export const campaignPlayers = pgTable("_CampaignPlayers", {
+export const post = pgTable("Post", {
+	id: text().primaryKey().notNull(),
+	userId: text().notNull(),
+	players: integer(),
+	startingLevel: integer(),
+	finishingLevel: integer(),
+	title: text().notNull(),
+	description: text().notNull(),
+	author: text().notNull(),
+	mainImage: text().notNull(),
+	body: text().notNull(),
+	createdAt: timestamp({ precision: 3, mode: 'string' }).default(sql`CURRENT_TIMESTAMP`).notNull(),
+	updatedAt: timestamp({ precision: 3, mode: 'string' }).notNull(),
+	campaignId: text().notNull(),
+}, (table) => [
+	uniqueIndex("Post_campaignId_key").using("btree", table.campaignId.asc().nullsLast().op("text_ops")),
+	foreignKey({
+			columns: [table.campaignId],
+			foreignColumns: [campaign.id],
+			name: "Post_campaignId_fkey"
+		}).onUpdate("cascade").onDelete("restrict"),
+	foreignKey({
+			columns: [table.userId],
+			foreignColumns: [user.clerkId],
+			name: "Post_userId_fkey"
+		}).onUpdate("cascade").onDelete("restrict"),
+]);
+
+export const friendship = pgTable("Friendship", {
+	id: text().primaryKey().notNull(),
+	senderId: text().notNull(),
+	senderName: text().notNull(),
+	receiverId: text().notNull(),
+	receiverName: text().notNull(),
+	senderImgUrl: text(),
+	receiverImgUrl: text(),
+	status: friendshipStatus().default('PENDING').notNull(),
+	createdAt: timestamp({ precision: 3, mode: 'string' }).default(sql`CURRENT_TIMESTAMP`).notNull(),
+	updatedAt: timestamp({ precision: 3, mode: 'string' }).notNull(),
+}, (table) => [
+	foreignKey({
+			columns: [table.receiverId],
+			foreignColumns: [user.clerkId],
+			name: "Friendship_receiverId_fkey"
+		}).onUpdate("cascade").onDelete("restrict"),
+	foreignKey({
+			columns: [table.senderId],
+			foreignColumns: [user.clerkId],
+			name: "Friendship_senderId_fkey"
+		}).onUpdate("cascade").onDelete("restrict"),
+]);
+
+export const like = pgTable("Like", {
+	id: text().primaryKey().notNull(),
+	postId: text().notNull(),
+	userId: text().notNull(),
+	createdAt: timestamp({ precision: 3, mode: 'string' }).default(sql`CURRENT_TIMESTAMP`).notNull(),
+}, (table) => [
+	foreignKey({
+			columns: [table.postId],
+			foreignColumns: [post.id],
+			name: "Like_postId_fkey"
+		}).onUpdate("cascade").onDelete("restrict"),
+	foreignKey({
+			columns: [table.userId],
+			foreignColumns: [user.id],
+			name: "Like_userId_fkey"
+		}).onUpdate("cascade").onDelete("restrict"),
+]);
+
+export const message = pgTable("Message", {
+	id: text().primaryKey().notNull(),
+	content: text().notNull(),
+	senderId: text().notNull(),
+	recipientId: text().notNull(),
+	sentAt: timestamp({ precision: 3, mode: 'string' }).default(sql`CURRENT_TIMESTAMP`).notNull(),
+}, (table) => [
+	foreignKey({
+			columns: [table.recipientId],
+			foreignColumns: [user.clerkId],
+			name: "Message_recipientId_fkey"
+		}).onUpdate("cascade").onDelete("restrict"),
+	foreignKey({
+			columns: [table.senderId],
+			foreignColumns: [user.clerkId],
+			name: "Message_senderId_fkey"
+		}).onUpdate("cascade").onDelete("restrict"),
+]);
+
+export const comment = pgTable("Comment", {
+	id: text().primaryKey().notNull(),
+	content: text().notNull(),
+	postId: text().notNull(),
+	userId: text().notNull(),
+	createdAt: timestamp({ precision: 3, mode: 'string' }).default(sql`CURRENT_TIMESTAMP`).notNull(),
+}, (table) => [
+	foreignKey({
+			columns: [table.postId],
+			foreignColumns: [post.id],
+			name: "Comment_postId_fkey"
+		}).onUpdate("cascade").onDelete("restrict"),
+	foreignKey({
+			columns: [table.userId],
+			foreignColumns: [user.id],
+			name: "Comment_userId_fkey"
+		}).onUpdate("cascade").onDelete("restrict"),
+]);
+
+export const campaign = pgTable("Campaign", {
+	id: text().primaryKey().notNull(),
+	name: text().notNull(),
+	description: text().notNull(),
+	image: text(),
+	password: text(),
+	dmUserId: text().notNull(),
+	dmName: text(),
+	dmProfileImg: text(),
+	createdAt: timestamp({ precision: 3, mode: 'string' }).default(sql`CURRENT_TIMESTAMP`).notNull(),
+	updatedAt: timestamp({ precision: 3, mode: 'string' }).notNull(),
+}, (table) => [
+	foreignKey({
+			columns: [table.dmUserId],
+			foreignColumns: [user.clerkId],
+			name: "Campaign_dmUserId_fkey"
+		}).onUpdate("cascade").onDelete("restrict"),
+]);
+
+export const invitedGame = pgTable("_InvitedGame", {
 	a: text("A").notNull(),
 	b: text("B").notNull(),
 }, (table) => [
-	uniqueIndex("_CampaignPlayers_AB_unique").using("btree", table.a.asc().nullsLast().op("text_ops"), table.b.asc().nullsLast().op("text_ops")),
+	uniqueIndex("_InvitedGame_AB_unique").using("btree", table.a.asc().nullsLast().op("text_ops"), table.b.asc().nullsLast().op("text_ops")),
 	index().using("btree", table.b.asc().nullsLast().op("text_ops")),
 	foreignKey({
 			columns: [table.a],
 			foreignColumns: [campaign.id],
-			name: "_CampaignPlayers_A_fkey"
+			name: "_InvitedGame_A_fkey"
 		}).onUpdate("cascade").onDelete("cascade"),
 	foreignKey({
 			columns: [table.b],
 			foreignColumns: [user.id],
-			name: "_CampaignPlayers_B_fkey"
+			name: "_InvitedGame_B_fkey"
 		}).onUpdate("cascade").onDelete("cascade"),
 ]);
 
@@ -366,20 +341,45 @@ export const requestingInvite = pgTable("_RequestingInvite", {
 		}).onUpdate("cascade").onDelete("cascade"),
 ]);
 
-export const invitedGame = pgTable("_InvitedGame", {
+export const prismaMigrations = pgTable("_prisma_migrations", {
+	id: varchar({ length: 36 }).primaryKey().notNull(),
+	checksum: varchar({ length: 64 }).notNull(),
+	finishedAt: timestamp("finished_at", { withTimezone: true, mode: 'string' }),
+	migrationName: varchar("migration_name", { length: 255 }).notNull(),
+	logs: text(),
+	rolledBackAt: timestamp("rolled_back_at", { withTimezone: true, mode: 'string' }),
+	startedAt: timestamp("started_at", { withTimezone: true, mode: 'string' }).defaultNow().notNull(),
+	appliedStepsCount: integer("applied_steps_count").default(0).notNull(),
+});
+
+export const campaignChat = pgTable("CampaignChat", {
+	id: text().primaryKey().notNull(),
+	campaignId: text().notNull(),
+	username: text().notNull(),
+	chat: text().notNull(),
+	createdAt: timestamp({ precision: 3, mode: 'string' }).default(sql`CURRENT_TIMESTAMP`).notNull(),
+}, (table) => [
+	foreignKey({
+			columns: [table.campaignId],
+			foreignColumns: [campaign.id],
+			name: "CampaignChat_campaignId_fkey"
+		}).onUpdate("cascade").onDelete("restrict"),
+]);
+
+export const campaignPlayers = pgTable("_CampaignPlayers", {
 	a: text("A").notNull(),
 	b: text("B").notNull(),
 }, (table) => [
-	uniqueIndex("_InvitedGame_AB_unique").using("btree", table.a.asc().nullsLast().op("text_ops"), table.b.asc().nullsLast().op("text_ops")),
+	uniqueIndex("_CampaignPlayers_AB_unique").using("btree", table.a.asc().nullsLast().op("text_ops"), table.b.asc().nullsLast().op("text_ops")),
 	index().using("btree", table.b.asc().nullsLast().op("text_ops")),
 	foreignKey({
 			columns: [table.a],
 			foreignColumns: [campaign.id],
-			name: "_InvitedGame_A_fkey"
+			name: "_CampaignPlayers_A_fkey"
 		}).onUpdate("cascade").onDelete("cascade"),
 	foreignKey({
 			columns: [table.b],
 			foreignColumns: [user.id],
-			name: "_InvitedGame_B_fkey"
+			name: "_CampaignPlayers_B_fkey"
 		}).onUpdate("cascade").onDelete("cascade"),
 ]);
