@@ -11,6 +11,7 @@
     "db:migrate": "drizzle-kit migrate",
     "db:push": "drizzle-kit push",
     "db:studio": "drizzle-kit studio",
+    "db:introspect": "drizzle-kit introspect",
     "db:seed": "tsx src/db/seed/index.ts",
     "docker:db": "docker compose -f src/db/docker.compose.yml up -d",
     "docker:db:down": "docker compose -f src/db/docker.compose.yml down",
