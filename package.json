@@ -8,23 +8,25 @@
     "start": "next start",
     "lint": "next lint",
     "db:gen": "drizzle-kit generate",
-		"db:migrate": "drizzle-kit migrate",
-		"db:push": "drizzle-kit push",
+    "db:migrate": "drizzle-kit migrate",
+    "db:push": "drizzle-kit push",
     "db:studio": "drizzle-kit studio",
     "db:seed": "tsx src/db/seed/index.ts",
     "docker:db": "docker compose -f src/db/docker.compose.yml up -d",
-    "docker:db:stop": "docker compose -f src/db/docker.compose.yml down",
-    "db:setup": "bun docker:db && until docker exec db-postgres-1 pg_isready > /dev/null 2>&1; do sleep 1; done && bun db:migrate && bun db:seed",
-    "db:reset": "bun docker:db:stop && bun db:setup"
+    "docker:db:down": "docker compose -f src/db/docker.compose.yml down",
+    "db:setup": "bun docker:db && bun db:migrate && bun db:seed",
+    "db:reset": "bun docker:db:down && bun db:setup"
   },
   "dependencies": {
+    "@clerk/nextjs": "^6.21.0",
     "@neondatabase/serverless": "^1.0.0",
     "dotenv": "^16.5.0",
     "drizzle-orm": "^0.44.2",
     "next": "15.3.3",
     "pg": "^8.16.0",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "svix": "^1.67.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
